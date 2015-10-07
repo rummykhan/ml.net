@@ -1,0 +1,99 @@
+﻿<header>
+    <nav class="navbar navbar-collapse navbar-default">
+
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a href="@Url.RouteUrl("home")">
+                    <span class="glyphicon glyphicon-music"></span>
+                    <span class="h3"> Music Library  </span>
+
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "News")">News</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Songs")">Songs</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Album")">Albums</a>
+            </li>
+        </ul>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("user"))
+        {
+            <text>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="glyphicon glyphicon-user"></i>
+                            @User.Identity.Name
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="@Url.Action("Create","Songs")">
+                                <i class="glyphicon glyphicon-share"></i>
+                                    Share Song
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("CreateAlbum","Album")">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                    Create Album
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("AddSongsInAlbum","Album")">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                                    Add Songs to Album
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ListSongs", "Songs")">
+                                <i class="glyphicon glyphicon-music"></i>
+                                    My Songs
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ListAlbums", "Album")">
+                                <i class="glyphicon glyphicon-cd"></i>
+                                    My Album
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("EditProfile", "User")">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                    Edit Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ChangePassword", "User")">
+                                    <i class="glyphicon glyphicon-refresh"></i>
+                                    Change Password
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("LogOff", "User")">
+                                <i class="glyphicon glyphicon-log-out"></i>
+                                    Log Off
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </text>
+        }
+        else
+        {
+            <text>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Login</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("SignUp", "Account")">Sign Up</a>
+                    </li>
+                </ul>
+            </text>
+        }
+    </nav>
+</header>

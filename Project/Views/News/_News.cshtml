@@ -1,0 +1,28 @@
+﻿@model Project.Infrastructure.PageData<Project.Models.News>
+
+@foreach (var item in Model)
+{
+    @Html.Partial("_SingleNews", item);
+}
+
+<ul class="list-unstyled">
+    @if (Model.HasPreviousPage)
+    {
+        <li class="pull-left">
+            <a href="@Url.Action(null, new { page = Model.PreviousPage })" class="btn btn-primary btn-sm">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Previous
+            </a>
+        </li>
+    }
+
+    @if (Model.HasNextPage)
+    {
+        <li class="pull-left">
+            <a href="@Url.Action(null, new { page = Model.NextPage })" class="btn btn-primary btn-sm">
+                Next
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        </li>
+    }
+</ul>

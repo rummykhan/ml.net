@@ -1,0 +1,7 @@
+﻿@model Project.ViewModels.NewsIndex
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "News";
+}
+
+@Html.Partial("_News", Model.News)

@@ -1,0 +1,64 @@
+﻿@model Project.Areas.manage.ViewModels.UsersCreateViewModel
+
+@{
+    ViewBag.Title = "Create New User";
+    Layout = "~/Areas/manage/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                New User
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+{
+    <div class="text-center">
+        @Html.ValidationSummary()
+        @ViewBag.Message
+    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserFirstName)
+                        @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserMiddleName)
+                        @Html.TextBoxFor(x => x.UserMiddleName, new { @class = "form-control" })
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserLastName)
+                        @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control" })
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Username)
+                        @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
+                    </div>
+                    
+                   <div class="form-group">
+                       @Html.LabelFor(x => x.UserPass)
+                       @Html.TextBoxFor(x => x.UserPass, new { @class = "form-control" })
+                   </div> 
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserConfirmPass)
+                        @Html.TextBoxFor(x => x.UserConfirmPass, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserEmail)
+                        @Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control" })
+                    </div>
+                    <div class="text-center">
+                        <input class="btn btn-info" type="submit" value="Create" />
+                        <a class="btn btn-link" href="@Url.Action("All")">or Go Back</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

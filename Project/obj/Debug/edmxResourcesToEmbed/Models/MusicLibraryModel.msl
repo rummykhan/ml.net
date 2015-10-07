@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjectDBModelStoreContainer" CdmEntityContainer="ProjectDBEntities">
+    <EntitySetMapping Name="Administrators">
+      <EntityTypeMapping TypeName="ProjectDBModel.Administrator">
+        <MappingFragment StoreEntitySet="Administrator">
+          <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+          <ScalarProperty Name="AdminUserName" ColumnName="AdminUserName" />
+          <ScalarProperty Name="AdminPassword" ColumnName="AdminPassword" />
+          <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Albums">
+      <EntityTypeMapping TypeName="ProjectDBModel.Album">
+        <MappingFragment StoreEntitySet="Album">
+          <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
+          <ScalarProperty Name="AlbumTitle" ColumnName="AlbumTitle" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="AlbumCoverPath" ColumnName="AlbumCoverPath" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlbumGeneres">
+      <EntityTypeMapping TypeName="ProjectDBModel.AlbumGenere">
+        <MappingFragment StoreEntitySet="AlbumGenere">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
+          <ScalarProperty Name="GenereID" ColumnName="GenereID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Generes">
+      <EntityTypeMapping TypeName="ProjectDBModel.Genere">
+        <MappingFragment StoreEntitySet="Genere">
+          <ScalarProperty Name="GenereID" ColumnName="GenereID" />
+          <ScalarProperty Name="GenereDetail" ColumnName="GenereDetail" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="News">
+      <EntityTypeMapping TypeName="ProjectDBModel.News">
+        <MappingFragment StoreEntitySet="News">
+          <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+          <ScalarProperty Name="NewsTitle" ColumnName="NewsTitle" />
+          <ScalarProperty Name="NewsSlug" ColumnName="NewsSlug" />
+          <ScalarProperty Name="NewsContents" ColumnName="NewsContents" />
+          <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+          <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+          <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SharingTypes">
+      <EntityTypeMapping TypeName="ProjectDBModel.SharingType">
+        <MappingFragment StoreEntitySet="SharingType">
+          <ScalarProperty Name="SharingTypeID" ColumnName="SharingTypeID" />
+          <ScalarProperty Name="SharingTypeDetail" ColumnName="SharingTypeDetail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SiteUsers">
+      <EntityTypeMapping TypeName="ProjectDBModel.SiteUser">
+        <MappingFragment StoreEntitySet="SiteUsers">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+          <ScalarProperty Name="UserMiddleName" ColumnName="UserMiddleName" />
+          <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPass" ColumnName="UserPass" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateActivated" ColumnName="DateActivated" />
+          <ScalarProperty Name="UserStatusID" ColumnName="UserStatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tracks">
+      <EntityTypeMapping TypeName="ProjectDBModel.Track">
+        <MappingFragment StoreEntitySet="Track">
+          <ScalarProperty Name="TrackID" ColumnName="TrackID" />
+          <ScalarProperty Name="TrackTitle" ColumnName="TrackTitle" />
+          <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
+          <ScalarProperty Name="TrackPath" ColumnName="TrackPath" />
+          <ScalarProperty Name="TrackCoverPath" ColumnName="TrackCoverPath" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrackGeneres">
+      <EntityTypeMapping TypeName="ProjectDBModel.TrackGenere">
+        <MappingFragment StoreEntitySet="TrackGenere">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+          <ScalarProperty Name="GenereID" ColumnName="GenereID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserStatus">
+      <EntityTypeMapping TypeName="ProjectDBModel.UserStatu">
+        <MappingFragment StoreEntitySet="UserStatus">
+          <ScalarProperty Name="UserStatusID" ColumnName="UserStatusID" />
+          <ScalarProperty Name="UserStatusDetail" ColumnName="UserStatusDetail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTrackShares">
+      <EntityTypeMapping TypeName="ProjectDBModel.UserTrackShare">
+        <MappingFragment StoreEntitySet="UserTrackShare">
+          <ScalarProperty Name="UserTrackSharedID" ColumnName="UserTrackSharedID" />
+          <ScalarProperty Name="TrackID" ColumnName="TrackID" />
+          <ScalarProperty Name="SharingTypeID" ColumnName="SharingTypeID" />
+          <ScalarProperty Name="SharingDate" ColumnName="SharingDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTrackShareLikes">
+      <EntityTypeMapping TypeName="ProjectDBModel.UserTrackShareLike">
+        <MappingFragment StoreEntitySet="UserTrackShareLike">
+          <ScalarProperty Name="UserTrackShareLikeID" ColumnName="UserTrackShareLikeID" />
+          <ScalarProperty Name="UserTrackShareID" ColumnName="UserTrackShareID" />
+          <ScalarProperty Name="LikedBy" ColumnName="LikedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

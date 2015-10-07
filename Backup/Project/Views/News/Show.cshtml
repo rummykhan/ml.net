@@ -1,0 +1,13 @@
+﻿@model Project.ViewModels.NewsShow
+@{
+    ViewBag.Title = Model.News.NewsTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_SingleNews", Model.News)
+
+<span class="pull-right">
+    <a href="@Url.Action("Index")" class="btn btn-primary btn-sm">
+        Back
+    </a>
+</span>

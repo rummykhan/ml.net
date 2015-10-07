@@ -1,0 +1,111 @@
+﻿@model Project.Models.SiteUser
+@{
+    ViewBag.Title = "Find";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="panel panel-primary" style="padding:10px;">
+
+            <div class="panel-heading">
+                @Model.UserName
+            </div>
+
+            <div class="panel-body">
+               
+                 <div class="col-lg-4">
+                    <!-- User Info -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            User Info
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>
+                                    First Name : @Model.UserFirstName
+                                </li>
+                                <li>
+                                    Middle Name : @(Model.UserMiddleName == null ? "----" : Model.UserMiddleName)
+                                </li>
+                                <li>
+                                    Last Name : @Model.UserLastName
+                                </li>
+                                <li>
+                                    Email : @Model.UserEmail
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- Song Shared -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Track Shared
+                        </div>
+                        <div class="panel-body">
+                            @if (Model.Tracks.Count == 0)
+                            {
+                                <span>
+                                    No Track Shared Yet
+                                </span>
+                            }
+                            else
+                            {
+                                foreach (var item in Model.Tracks)
+                                {
+                                    if (item.UserTrackShares.Where(x => x.SharingType.SharingTypeDetail == "Public" || x.SharingType.SharingTypeDetail == "Users Only").FirstOrDefault<Project.Models.UserTrackShare>() != null)
+                                    {
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading text-capitalize">
+                                                <a href="@Url.Action("Play", "Songs", new { @id = item.TrackID })">
+                                                    <i class="glyphicon glyphicon-play-circle"></i>
+                                                    @item.TrackTitle
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Album Shared -->
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-capitalize">
+                            Album Shared
+                        </div>
+                        <div class="panel-body">
+                            @if (Model.Albums.Count == 0)
+                            {
+                                <span class="text-success">
+                                    No Album Shared Yet
+                                </span>
+                            }
+                            else
+                            {
+                                foreach (var item in Model.Albums.Where(x => x.IsActive == true && x.Tracks.Count > 0))
+                                {
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading text-capitalize">
+                                            <a href="@Url.Action("Play", "Album", new { @id = item.AlbumID })">
+                                                <i class="glyphicon glyphicon-play-circle"></i>
+                                                @item.AlbumTitle
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

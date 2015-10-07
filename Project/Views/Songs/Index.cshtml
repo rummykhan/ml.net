@@ -1,0 +1,10 @@
+﻿@model Project.ViewModels.SongsListViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Songs";
+}
+
+
+@Html.Partial("_SongsPaging", Model)
+
+@Html.Partial("_SongGrid", Model)

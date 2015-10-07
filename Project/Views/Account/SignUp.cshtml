@@ -1,0 +1,60 @@
+﻿@model Project.ViewModels.SignUpViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Sign Up";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-lg-offset-3 col-lg-6">
+            <div class="panel panel-info" style="padding:20px;">
+                <div class="panel-heading text-center">
+                    Sign Up
+                </div>
+                <div class="panel-body">
+                    @Html.ValidationSummary()
+                    <div class="text-danger text-center">
+                        @Html.ValidationSummary()
+                        @ViewBag.Message
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserFirstName)
+                        @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserMiddleName)
+                        @Html.TextBoxFor(x => x.UserMiddleName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserLastName)
+                        @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Username)
+                        @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserPass)
+                        @Html.TextBoxFor(x => x.UserPass, new { @class = "form-control", @type = "password" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserConfirmPass)
+                        @Html.TextBoxFor(x => x.UserConfirmPass, new { @class = "form-control", @type = "password" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.UserEmail)
+                        @Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group text-center">
+                        <input class="btn btn-info" type="submit" value="Sign Up" />
+                        <input class="btn btn-default" type="reset" value="Clear!" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

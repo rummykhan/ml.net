@@ -1,0 +1,9 @@
+﻿@model Project.ViewModels.AlbumsListViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Albums";
+}
+
+@Html.Partial("_AlbumPaging", Model)
+
+@Html.Partial("_AlbumGrid", Model)

@@ -1,0 +1,88 @@
+﻿
+<div class="panel panel-info">
+    <div class="panel-heading h3">
+        Songs
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            
+            @foreach (var track in Model.Tracks)
+            {
+                <div class="col-lg-3">
+                    <div class="panel panel-success" style="padding:5px;">
+
+                        <div class="panel-heading text-capitalize">
+                            <a href="@Url.Action("Play", "Songs", new { @id = track.TrackID })">
+                                <i class="glyphicon glyphicon-play-circle"></i>
+                                @track.TrackTitle
+                            </a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <span>
+                                    (<span id="@track.TrackID">@track.LikesCount</span>)Likes
+                                </span>
+                            }
+                        </div>
+                        @{
+                            var path = Server.MapPath("~"+track.TrackCoverPath);
+                            var Cover = Project.Infrastructure.FileUtilities.ToImageSrcString(path);
+                         }
+                        <div class="thumbnail">
+                            <img src="@Cover" style="width:230px;height:110px;">
+                        </div>
+
+                        @if (track.TrackGeneres.Count > 0)
+                        {
+                            <div class="thumbnail">
+                                <p class="container" style="margin:0 auto;">
+
+                                    @foreach (var genere in track.TrackGeneres)
+                                    {
+                                        <div class="badge">
+                                            @genere.Genere.GenereDetail
+                                        </div>
+                                    }
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="thumbnail">
+                                <p class="container" style="margin:0 auto;">
+                                    <div class="badge">
+                                        No Genere
+                                    </div>
+
+                                </p>
+                            </div>
+                        }
+
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="thumbnail text-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-default btn-xs btn-like" role="button" data-me="@track.TrackID">
+                                        <i class="glyphicon glyphicon-check"></i>
+                                        Like
+                                    </a>
+                                    <a href="@Url.Action("Download", "Songs", new { @id = track.TrackID })" class="btn btn-default btn-xs" role="button">
+                                        <i class="glyphicon glyphicon-download-alt"></i>
+                                        Download
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="thumbnail text-center text-info">
+                                <a href="@Url.Action("Find", "User", new { track.SiteUser.UserName })" class="text-info">
+                                    by
+                                    @track.SiteUser.UserName
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

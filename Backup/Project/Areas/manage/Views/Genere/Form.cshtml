@@ -1,0 +1,51 @@
+﻿@model Project.Areas.manage.ViewModels.GenerePostForm
+@{
+    ViewBag.Title = Model.IsNew ? "Create Genere" : "Update Genere";
+    Layout = "~/Areas/manage/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                @(Model.IsNew ? "Create Genere" : "Update Genere")
+            </div>
+
+            <div class="panel-body">
+                @using (Html.BeginForm("Form", "Genere"))
+                {
+                    if (!Model.IsNew)
+                    {
+                        @Html.HiddenFor(x => x.GenereID)
+                    }
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary()
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Detail)
+                        @Html.TextBoxFor(x => x.Detail, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.IsActive)
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                @Html.CheckBoxFor(x => x.IsActive)
+                            </span>
+                            <input type="text" class="form-control" aria-label="...">
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" value="@(Model.IsNew?"Create Genere":"Update Genere")" class="btn btn-info btn-sm" />
+                        <a href="@Url.Action("Index")">or Cancel</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

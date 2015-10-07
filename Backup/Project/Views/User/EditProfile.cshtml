@@ -1,0 +1,54 @@
+﻿@model Project.ViewModels.EditProfileViewModel
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-info">
+            <div class="panel-heading text-capitalize">
+                Edit Profile
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    <div class="text-center text-danger">
+                        @ViewBag.Message
+                        @Html.ValidationSummary()
+                    </div>
+
+                    
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(x => x.ID)
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.FirstName)
+                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.MiddleName)
+                        @Html.TextBoxFor(x => x.MiddleName, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.LastName)
+                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Email)
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" value="Submit" class="btn btn-info" />
+                        <a href="@Url.Action("Index","Home")"> Or Cancel</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+﻿@model Project.ViewModels.ShareSongPostForm
+@{
+    ViewBag.Title = Model.IsNew ? "Share Song" : "Edit Song";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    List<SelectListItem> items = new List<SelectListItem>();
+    foreach (var item in ViewBag.SharingTypes)
+    {
+        items.Add(new SelectListItem()
+        {
+            Text = item.SharingTypeDetail,
+            Value = item.SharingTypeID.ToString()
+        });
+    }
+}
+
+
+<div class="row">
+    <div class="col-lg-offset-3 col-lg-6">
+        <div class="panel panel-info" style="padding:20px;">
+
+            <div class="panel-heading text-center">
+                @(Model.IsNew ? "Share Track" : "Edit Track")
+            </div>
+
+            <div class="panel-body">
+                @using (Html.BeginForm("SongForm", "Songs", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="text-danger text-center">
+                        @Html.ValidationSummary()
+                    </div>
+
+                    if (!Model.IsNew)
+                    {
+                        @Html.HiddenFor(x => x.ID)
+                        @Html.HiddenFor(x => x.AlbumID)
+                        @Html.HiddenFor(x => x.TrackShareID)
+                    }
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Title)
+                        @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group ">
+                        @Html.LabelFor(x => x.Track)
+                        <input type="file" id="Track" name="Track" class="btn btn-default" />
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.TrackCover)
+                        <input type="file" id="TrackCover" name="TrackCover" class="btn btn-default" />
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.IsActive)
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                @Html.CheckBoxFor(x => x.IsActive)
+                            </span>
+                            <input type="text" class="form-control" aria-label="...">
+                        </div>
+                    </div>
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading text-center">
+                            Select Genere(s)
+                        </div>
+                        <div class="panel-body song-genere-editor">
+                            <ul class="genere-select">
+                                @for (int i = 0; i < Model.Generes.Count; i++)
+                                {
+                                    var genere = Model.Generes[i];
+                                    <li data-genere-id="@genere.ID" class="@(genere.IsChecked?"selected":"")">
+                                        <a href="#">@genere.Name</a>
+                                        <input type="hidden" name="Generes[@(i)].ID" value="@genere.ID" />
+                                        <input type="hidden" name="Generes[@(i)].Name" value="@genere.Name">
+                                        <input type="hidden" name="Generes[@(i)].IsChecked" value="@genere.IsChecked.ToString()" class="selected-input">
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.SharingTypeID)
+                        @Html.DropDownListFor(x => x.SharingTypeID, items, "-- Sharing Type --", new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" value="@(Model.IsNew?"Share Song":"Update Song")" class="btn btn-info" />
+                        <a href="@Url.Action("Index","Home")">or Cancel</a>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

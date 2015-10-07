@@ -1,0 +1,119 @@
+﻿@model Project.Areas.manage.ViewModels.NewsIndexViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/manage/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="text-align:center">
+    <span>
+        @ViewBag.Message
+    </span>
+</div>
+<div class="btn-toolbar">
+    <div class="btn-group">
+        <a href="@Url.Action("Create")" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-plus"></span>
+            Create News
+        </a>
+    </div>
+    <div class="btn-group pull-right">
+        @if (Model.News.HasPreviousPage)
+        {
+            <a href="@Url.Action("Index", new { page = Model.News.PreviousPage })" class="btn btn-default btn-primary btn-sm">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                Previous Page
+            </a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                Previous Page
+            </a>
+        }
+
+        @if (Model.News.HasNextPage)
+        {
+            <a href="@Url.Action("Index", new { page = Model.News.NextPage })" class="btn btn-default btn-primary btn-sm">
+                Next Page
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-default btn-sm">
+                Next Page
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        }
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Posted Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.News)
+        {
+            var cls = "";
+            if (item.IsDeleted)
+            {
+                cls = "danger";
+            }
+
+            <tr class="@cls">
+                <td>@item.NewsTitle</td>
+                <td>@item.Administrator.AdminUserName</td>
+                <td>@item.PostedDate</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { @id = item.NewsID })" class="btn btn-primary btn-xs">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        Edit
+                    </a>
+
+
+                    @if (!item.IsDeleted)
+                    {
+                        <div class="btn-group btn-group-xs">
+                            <a href="@Url.Action("Trash", new { @newsID = item.NewsID })" class="btn btn-danger">
+                                <i class="glyphicon glyphicon-remove"></i>Trash
+                            </a>
+                            <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="@Url.Action("Delete", new { @newsID = item.NewsID })">
+                                        <i class="glyphicon glyphicon-remove"></i>Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Restore", new { @newsid = item.NewsID})" class="btn btn-success btn-xs">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            restore
+                        </a>
+                    }
+
+
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script src="~/Areas/manage/Scripts/Form.js"></script>
+}

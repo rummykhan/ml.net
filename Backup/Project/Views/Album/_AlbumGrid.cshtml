@@ -1,0 +1,57 @@
+﻿<div class="panel panel-success">
+    <div class="panel-heading h3">
+         Albums
+    </div>
+    <div class="panel-body">
+        <div class="row">
+
+            @foreach (var album in Model.Albums)
+            {
+                <div class="col-lg-3">
+                    <div class="panel panel-info" style="padding:5px;">
+
+                        <div class="panel-heading text-capitalize">
+                            <a href="@Url.Action("Play", "Album", new { @id = album.AlbumID })">
+                                <i class="glyphicon glyphicon-play-circle"></i>
+                                @album.AlbumTitle
+                            </a>
+                        </div>
+                        @{
+                            var path = Server.MapPath("~" + album.AlbumCoverPath);
+                            var Cover = Project.Infrastructure.FileUtilities.ToImageSrcString(path);
+                        }
+                        <div class="thumbnail">
+                            <img src="@Cover" style="width:230px;height:110px;">
+                        </div>
+
+                        @if (album.AlbumGeneres.Count > 0)
+                        {
+                            <div class="thumbnail">
+                                <p class="container" style="margin:0 auto;">
+                                    
+                                    @foreach (var genere in album.AlbumGeneres)
+                                    {
+                                        <div class="badge">
+                                            @genere.Genere.GenereDetail
+                                        </div>
+                                    }
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="thumbnail">
+                                <p class="container" style="margin:0 auto;">
+
+                                    <div class="badge">
+                                        No Genere
+                                    </div>
+                                </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

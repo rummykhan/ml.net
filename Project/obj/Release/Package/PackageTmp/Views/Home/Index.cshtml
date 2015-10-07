@@ -1,0 +1,10 @@
+﻿@model Project.ViewModels.IndexDisplayViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home";
+}
+
+@Html.Partial("../Songs/_SongGrid", Model)
+@Html.Partial("../Album/_AlbumGrid", Model)
+
+

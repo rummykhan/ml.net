@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Admin</title>
+    @Styles.Render("~/manage/Styles")
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-inverse navbar-default">
+            <div class="navbar-brand">
+                <a href="@Url.Action("Index", "Admin")">
+                    <i class="glyphicon glyphicon-music"></i>
+                    <span class="h3"> Music Library  </span>
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span>News</span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            @Html.ActionLink("Manage", "Index", "News")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Create", "Create", "News")
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span>Genere</span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            @Html.ActionLink("Manage", "Index", "Genere")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Create", "Create", "Genere")
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span>Users</span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            @Html.ActionLink("Manage", "All", new { area = "manage", controller = "Users" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("CreateNew", "New", new { area = "manage", controller = "Users" })
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-user"></span>
+                        @User.Identity.Name
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="@Url.Action("ChangePassword", "Admin")">
+                                <i class="glyphicon glyphicon-refresh"></i>
+                                Change Password
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/elmah.axd" target="_blank">
+                                <i class="glyphicon glyphicon-wrench"></i>
+                                ErrorLogs
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("LogOut", "Admin")">
+                                <i class="glyphicon glyphicon-log-out"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container" style="align-content:center">
+        @RenderBody()
+    </div>
+    <div class="well">
+        <div class="container">
+            Copyright &copy; 2015 by rummykhan
+        </div>
+    </div>
+    @Scripts.Render("~/manage/Scripts")
+    @RenderSection("Scripts", false)
+</body>
+</html>

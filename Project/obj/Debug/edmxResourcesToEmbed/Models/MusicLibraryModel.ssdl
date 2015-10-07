@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Administrator">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AdminUserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="AdminPassword" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="AdminEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Album">
+    <Key>
+      <PropertyRef Name="AlbumID" />
+    </Key>
+    <Property Name="AlbumID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AlbumTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateAdded" Type="date" Nullable="false" />
+    <Property Name="AlbumCoverPath" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AlbumGenere">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AlbumID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="GenereID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Genere">
+    <Key>
+      <PropertyRef Name="GenereID" />
+    </Key>
+    <Property Name="GenereID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GenereDetail" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="NewsID" />
+    </Key>
+    <Property Name="NewsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NewsTitle" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="NewsSlug" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="NewsContents" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PostedBy" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PostedDate" Type="date" Nullable="false" />
+    <Property Name="DeleteDate" Type="date" />
+  </EntityType>
+  <EntityType Name="SharingType">
+    <Key>
+      <PropertyRef Name="SharingTypeID" />
+    </Key>
+    <Property Name="SharingTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SharingTypeDetail" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SiteUsers">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserFirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserMiddleName" Type="nvarchar" MaxLength="20" />
+    <Property Name="UserLastName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserPass" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="UserEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="DateActivated" Type="datetime" />
+    <Property Name="UserStatusID" Type="int" />
+  </EntityType>
+  <EntityType Name="Track">
+    <Key>
+      <PropertyRef Name="TrackID" />
+    </Key>
+    <Property Name="TrackID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TrackTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AlbumID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TrackPath" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="TrackCoverPath" Type="nvarchar" MaxLength="200" />
+    <Property Name="DateAdded" Type="date" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TrackGenere">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TrackId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="GenereID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserStatus">
+    <Key>
+      <PropertyRef Name="UserStatusID" />
+    </Key>
+    <Property Name="UserStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserStatusDetail" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserTrackShare">
+    <Key>
+      <PropertyRef Name="UserTrackSharedID" />
+    </Key>
+    <Property Name="UserTrackSharedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TrackID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SharingTypeID" Type="int" Nullable="false" />
+    <Property Name="SharingDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserTrackShareLike">
+    <Key>
+      <PropertyRef Name="UserTrackShareLikeID" />
+    </Key>
+    <Property Name="UserTrackShareLikeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserTrackShareID" Type="int" Nullable="false" />
+    <Property Name="LikedBy" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Album_SiteUsers">
+    <End Role="SiteUsers" Type="Self.SiteUsers" Multiplicity="1" />
+    <End Role="Album" Type="Self.Album" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SiteUsers">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Album">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlbumGenere_Album">
+    <End Role="Album" Type="Self.Album" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlbumGenere" Type="Self.AlbumGenere" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album">
+        <PropertyRef Name="AlbumID" />
+      </Principal>
+      <Dependent Role="AlbumGenere">
+        <PropertyRef Name="AlbumID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlbumGenere_Genere">
+    <End Role="Genere" Type="Self.Genere" Multiplicity="1" />
+    <End Role="AlbumGenere" Type="Self.AlbumGenere" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genere">
+        <PropertyRef Name="GenereID" />
+      </Principal>
+      <Dependent Role="AlbumGenere">
+        <PropertyRef Name="GenereID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_News_Administrator">
+    <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Administrator">
+        <PropertyRef Name="AdminID" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="PostedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SiteUsers_UserStatus">
+    <End Role="UserStatus" Type="Self.UserStatus" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SiteUsers" Type="Self.SiteUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserStatus">
+        <PropertyRef Name="UserStatusID" />
+      </Principal>
+      <Dependent Role="SiteUsers">
+        <PropertyRef Name="UserStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Track_Album">
+    <End Role="Album" Type="Self.Album" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track" Type="Self.Track" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album">
+        <PropertyRef Name="AlbumID" />
+      </Principal>
+      <Dependent Role="Track">
+        <PropertyRef Name="AlbumID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Track_SiteUsers">
+    <End Role="SiteUsers" Type="Self.SiteUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track" Type="Self.Track" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SiteUsers">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Track">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackGenere_Genere">
+    <End Role="Genere" Type="Self.Genere" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TrackGenere" Type="Self.TrackGenere" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genere">
+        <PropertyRef Name="GenereID" />
+      </Principal>
+      <Dependent Role="TrackGenere">
+        <PropertyRef Name="GenereID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackGenere_Track">
+    <End Role="Track" Type="Self.Track" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TrackGenere" Type="Self.TrackGenere" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track">
+        <PropertyRef Name="TrackID" />
+      </Principal>
+      <Dependent Role="TrackGenere">
+        <PropertyRef Name="TrackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTrackShare_SharingType">
+    <End Role="SharingType" Type="Self.SharingType" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserTrackShare" Type="Self.UserTrackShare" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SharingType">
+        <PropertyRef Name="SharingTypeID" />
+      </Principal>
+      <Dependent Role="UserTrackShare">
+        <PropertyRef Name="SharingTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTrackShare_Track">
+    <End Role="Track" Type="Self.Track" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserTrackShare" Type="Self.UserTrackShare" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track">
+        <PropertyRef Name="TrackID" />
+      </Principal>
+      <Dependent Role="UserTrackShare">
+        <PropertyRef Name="TrackID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTrackShareLike_SiteUsers">
+    <End Role="SiteUsers" Type="Self.SiteUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserTrackShareLike" Type="Self.UserTrackShareLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SiteUsers">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserTrackShareLike">
+        <PropertyRef Name="LikedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTrackShareLike_UserTrackShare">
+    <End Role="UserTrackShare" Type="Self.UserTrackShare" Multiplicity="1" />
+    <End Role="UserTrackShareLike" Type="Self.UserTrackShareLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTrackShare">
+        <PropertyRef Name="UserTrackSharedID" />
+      </Principal>
+      <Dependent Role="UserTrackShareLike">
+        <PropertyRef Name="UserTrackShareID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjectDBModelStoreContainer">
+    <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AlbumGenere" EntityType="Self.AlbumGenere" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genere" EntityType="Self.Genere" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SharingType" EntityType="Self.SharingType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SiteUsers" EntityType="Self.SiteUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Track" EntityType="Self.Track" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TrackGenere" EntityType="Self.TrackGenere" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserStatus" EntityType="Self.UserStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserTrackShare" EntityType="Self.UserTrackShare" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserTrackShareLike" EntityType="Self.UserTrackShareLike" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Album_SiteUsers" Association="Self.FK_Album_SiteUsers">
+      <End Role="SiteUsers" EntitySet="SiteUsers" />
+      <End Role="Album" EntitySet="Album" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlbumGenere_Album" Association="Self.FK_AlbumGenere_Album">
+      <End Role="Album" EntitySet="Album" />
+      <End Role="AlbumGenere" EntitySet="AlbumGenere" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlbumGenere_Genere" Association="Self.FK_AlbumGenere_Genere">
+      <End Role="Genere" EntitySet="Genere" />
+      <End Role="AlbumGenere" EntitySet="AlbumGenere" />
+    </AssociationSet>
+    <AssociationSet Name="FK_News_Administrator" Association="Self.FK_News_Administrator">
+      <End Role="Administrator" EntitySet="Administrator" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SiteUsers_UserStatus" Association="Self.FK_SiteUsers_UserStatus">
+      <End Role="UserStatus" EntitySet="UserStatus" />
+      <End Role="SiteUsers" EntitySet="SiteUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Track_Album" Association="Self.FK_Track_Album">
+      <End Role="Album" EntitySet="Album" />
+      <End Role="Track" EntitySet="Track" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Track_SiteUsers" Association="Self.FK_Track_SiteUsers">
+      <End Role="SiteUsers" EntitySet="SiteUsers" />
+      <End Role="Track" EntitySet="Track" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackGenere_Genere" Association="Self.FK_TrackGenere_Genere">
+      <End Role="Genere" EntitySet="Genere" />
+      <End Role="TrackGenere" EntitySet="TrackGenere" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackGenere_Track" Association="Self.FK_TrackGenere_Track">
+      <End Role="Track" EntitySet="Track" />
+      <End Role="TrackGenere" EntitySet="TrackGenere" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTrackShare_SharingType" Association="Self.FK_UserTrackShare_SharingType">
+      <End Role="SharingType" EntitySet="SharingType" />
+      <End Role="UserTrackShare" EntitySet="UserTrackShare" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTrackShare_Track" Association="Self.FK_UserTrackShare_Track">
+      <End Role="Track" EntitySet="Track" />
+      <End Role="UserTrackShare" EntitySet="UserTrackShare" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTrackShareLike_SiteUsers" Association="Self.FK_UserTrackShareLike_SiteUsers">
+      <End Role="SiteUsers" EntitySet="SiteUsers" />
+      <End Role="UserTrackShareLike" EntitySet="UserTrackShareLike" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTrackShareLike_UserTrackShare" Association="Self.FK_UserTrackShareLike_UserTrackShare">
+      <End Role="UserTrackShare" EntitySet="UserTrackShare" />
+      <End Role="UserTrackShareLike" EntitySet="UserTrackShareLike" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

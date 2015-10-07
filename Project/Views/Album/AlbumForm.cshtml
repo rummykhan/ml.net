@@ -1,0 +1,80 @@
+﻿@model Project.ViewModels.CreateAlbumPostForm
+@{
+    ViewBag.Title = Model.IsNew ? "Create Album" : "Edit Album";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-lg-offset-3 col-lg-6">
+        <div class="panel panel-info" style="padding:20px;">
+            <div class="panel-heading text-center">
+                @(Model.IsNew ? "Create Album" : "Edit Album")
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("AlbumForm", "Album", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="text-danger text-center">
+                        @Html.ValidationSummary()
+                    </div>
+
+                    if (!Model.IsNew)
+                    {
+                        @Html.HiddenFor(x => x.AlbumID)
+                    }
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Title)
+                        @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.AlbumCover)
+                        <input type="file" id="AlbumCover" name="AlbumCover" class="btn btn-default" />
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.IsActive)
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                @Html.CheckBoxFor(x => x.IsActive)
+                            </span>
+                            <input type="text" class="form-control" aria-label="...">
+                        </div>
+                    </div>
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading text-center">
+                            Select Genere(s)
+                        </div>
+                        <div class="panel-body song-genere-editor">
+                            <ul class="genere-select">
+                                @for (int i = 0; i < Model.Generes.Count; i++)
+                                {
+                                    var genere = Model.Generes[i];
+                                    <li data-genere-id="@genere.ID" class="@(genere.IsChecked?"selected":"")">
+                                        <a href="#">@genere.Name</a>
+                                        <input type="hidden" name="Generes[@(i)].ID" value="@genere.ID" />
+                                        <input type="hidden" name="Generes[@(i)].Name" value="@genere.Name">
+                                        <input type="hidden" name="Generes[@(i)].IsChecked" value="@genere.IsChecked.ToString()" class="selected-input">
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                        <div class="form-group text-center">
+                            <input type="submit" value="@(Model.IsNew?"Create Album":"Update Album")" class="btn btn-info" />
+                            <a href="@Url.Action("Index","Home")">
+                                or Cancel
+                            </a>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,58 @@
+﻿@model Project.Areas.manage.ViewModels.PostForm
+@{
+    ViewBag.Title = Model.IsNew ? "Create News" : "Update News";
+    Layout = "~/Areas/manage/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using(Html.BeginForm("Form","News"))
+{
+    if(!Model.IsNew)
+    {
+        @Html.HiddenFor(x => x.NewsID)
+    }
+    
+    @Html.AntiForgeryToken();
+    <div class="row">
+        <div class="col-lg-8">
+            @Html.ValidationSummary()
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Title)
+                @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x=> x.Slug)
+                @Html.TextBoxFor(x => x.Slug, new { @class = "form-control", data_slug = "#Title" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Contents)
+                @Html.TextAreaFor(x => x.Contents, new { @class = "form-control" })
+            </div>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    News Action
+                </div>
+                <div class="panel-body">
+                    <input type="submit" value="@(Model.IsNew?"Create News":"Update")" class="btn btn-success btn-sm" />
+                    <a href="@Url.Action("Index")">or Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts
+{
+    <script src="~/Areas/manage/Scripts/Form.js"></script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('Contents');
+    </script>
+}

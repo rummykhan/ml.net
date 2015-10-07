@@ -1,0 +1,72 @@
+﻿@model IList<Project.Areas.manage.ViewModels.UsersCreateViewModel>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Areas/manage/Views/Shared/_AdminLayout.cshtml";
+    int Counter = 1;
+}
+
+<div class="h3" style="text-align:center">
+    Total Users -  @Model.Count
+</div>
+
+<span class="text-danger">
+    @ViewBag.Message
+</span>
+
+<div class="btn-toolbar">
+    <a href="@Url.Action("New")" class="btn btn-primary btn-sm"> <i class="glyphicon glyphicon-plus"></i> Create User</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@Counter</td>
+                <td>@user.Username</td>
+                <td>@user.UserEmail</td>
+                <td>
+                    @if (user.UserStatusID == 1)
+                    {
+                        <span>Pending</span>
+                    }
+                    else if (user.UserStatusID == 2)
+                    {
+                        <span>Active</span>
+                    }
+                    else if (user.UserStatusID == 3)
+                    {
+                        <span>Blocked</span>
+                    }
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Active", new { @user.UserID })" class="btn btn-xs btn-primary">
+                            <i class="glyphicon glyphicon-check"></i>
+                            Active
+                        </a>
+                        <a href="@Url.Action("ResetPassword", new { @user.UserID })" class="btn btn-xs btn-default">
+                            <i class="glyphicon glyphicon-lock"></i>
+                            Reset Password
+                        </a>
+                        <a href="@Url.Action("Block", new { @user.UserID })" class="btn btn-xs btn-danger">
+                            <i class="glyphicon glyphicon-ban-circle"></i>
+                            Block
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            Counter++;
+        }
+    </tbody>
+</table>

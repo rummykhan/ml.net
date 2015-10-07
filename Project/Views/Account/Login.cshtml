@@ -1,0 +1,48 @@
+﻿@model Project.ViewModels.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Login";
+}
+
+
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-lg-offset-3 col-lg-6">
+            <div class="panel panel-info" style="padding:20px;">
+                <div class="panel-heading text-center">
+                    Login
+                </div>
+                <div class="panel-body">
+                    <div class="text-danger text-center">
+                        @ViewBag.Message
+                        @Html.ValidationSummary()
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Username)
+                        @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Password)
+                        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @type = "password" })
+                    </div>
+
+
+                    <div class="form-group text-center">
+                        <div class="btn-group">
+                            <input class="btn btn-info" type="submit" value="Login" />
+                            <a href="@Url.Action("ForgotPassword","Account")" class="btn btn-danger">
+                                Forgot Password
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

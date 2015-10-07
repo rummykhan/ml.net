@@ -1,0 +1,74 @@
+﻿@model Project.Areas.manage.ViewModels.AdminIndexViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/manage/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="panel panel-primary" style="padding:10px;">
+            <div class="panel-heading text-capitalize h3">
+                Dashboard
+            </div>
+            <div class="panel-body">
+
+                <!-- Users -->
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading h4">
+                            Users Overview
+                        </div>
+                        <div class="panel-body text-justify text-info">
+                            <b>Total Users : </b> @Model.Users.Count
+                            <br />
+                            <b>Active : </b> @Model.Users.Where(x => x.UserStatu.UserStatusDetail == "Active").ToList().Count
+                            <br />
+                            <b>Pending Activation : </b> @Model.Users.Where(x => x.UserStatu.UserStatusDetail == "Pending").ToList().Count
+                            <br />
+                            <b>Blocked : </b> @Model.Users.Where(x => x.UserStatu.UserStatusDetail == "Blocked").ToList().Count
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tracks -->
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading h4">
+                            Tracks Overview
+                        </div>
+                        <div class="panel-body text-justify text-info">
+                            <b>Total Tracks : </b> @Model.Tracks.Count
+                            <br />
+                            <b>Active : </b> @Model.Tracks.Where(x => x.IsActive == true).ToList().Count
+                            <br />
+                            <b>Public Tracks : </b> @Model.Tracks.Where(x => x.UserTrackShares.Where(y => y.SharingType.SharingTypeDetail == "Public").FirstOrDefault<Project.Models.UserTrackShare>() != null).ToList().Count
+                            <br />
+                            <b>Private Tracks : </b> @Model.Tracks.Where(x => x.UserTrackShares.Where(y => y.SharingType.SharingTypeDetail == "Private").FirstOrDefault<Project.Models.UserTrackShare>() != null).ToList().Count
+                            <br />
+                            <b>Users Only Tracks : </b> @Model.Tracks.Where(x => x.UserTrackShares.Where(y => y.SharingType.SharingTypeDetail == "Users Only").FirstOrDefault<Project.Models.UserTrackShare>() != null).ToList().Count
+                        </div>
+                    </div>
+                </div>
+
+                <!--Albums-->
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading h4">
+                            Albums Overview
+                        </div>
+                        <div class="panel-body text-justify text-info">
+                            <b>Total Albums : </b> @Model.Albums.Where(x => x.AlbumTitle != "Default").ToList().Count
+                            <br />
+                            <b>Active : </b> @Model.Albums.Where(x => x.IsActive == true && x.AlbumTitle != "Default").ToList().Count
+                            <br />
+                            <b>With No Song : </b> @Model.Albums.Where(x => x.Tracks.Count == 0 && x.AlbumTitle != "Default").ToList().Count
+                            <br />
+                            <b>With Song Available : </b> @Model.Albums.Where(x => x.Tracks.Count > 0 && x.AlbumTitle != "Default").ToList().Count
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

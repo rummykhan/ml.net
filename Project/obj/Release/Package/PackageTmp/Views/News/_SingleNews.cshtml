@@ -1,0 +1,20 @@
+﻿@model Project.Models.News
+@{
+    var Action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+}
+<article class="news">
+    <h1>
+        <a href="@Url.Action("Show", "News", new { @id = Model.NewsID, @slug = Model.NewsSlug })">
+            @Model.NewsTitle
+        </a>
+    </h1>
+    @if (Action == "Show")
+    {
+        <div>
+            @Html.Raw(Model.NewsContents)
+        </div>
+    }
+    <footer>
+        Posted: <abbr class="timeago" title="@Model.PostedDate.ToString("o")"></abbr>
+    </footer>
+</article>

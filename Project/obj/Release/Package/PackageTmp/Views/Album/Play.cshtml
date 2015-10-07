@@ -1,0 +1,108 @@
+﻿@model IList<Project.Models.Track>
+@{
+    ViewBag.Title = "Play Album";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-1 container-fluid">
+        <div class="panel panel-info">
+            <div class="panel-heading text-justify">
+                <span class="text-capitalize text-info">
+                    <b>Album</b> - @Model[0].Album.AlbumTitle
+                </span>
+                <br />
+                <span class="text-capitalize text-success">
+                    <b>Song</b> -  @ViewBag.ActiveTrack.TrackTitle
+                </span>
+            </div>
+            <div class="panel-body text-center">
+                @{
+                    var path = Server.MapPath("~" + ViewBag.ActiveTrack.TrackCoverPath);
+                    var Cover = Project.Infrastructure.FileUtilities.ToImageSrcString(path);
+                }
+                <div class="thumbnail">
+                    <img src="@Cover" style="max-height:330px;border:1px solid  rgba(255, 255, 255, 0.30)" class="img-rounded img-responsive">
+                </div>
+                @{
+                    path = Server.MapPath("~" + ViewBag.ActiveTrack.TrackPath);
+                    var trackData = Project.Infrastructure.FileUtilities.ToAudioSrcString(path);
+                }
+                <audio controls>
+                    <source src="@trackData" type="audio/mp3">
+                </audio>
+            </div>
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="thumbnail text-info text-center">
+                    <span class="btn btn-info btn-xs">
+                        <span id="@ViewBag.ActiveTrack.TrackID">
+                            @ViewBag.ActiveTrack.LikesCount
+                        </span>
+                        - Likes
+                    </span>
+                    <span class="btn btn-info btn-xs text-center">by @ViewBag.ActiveTrack.SiteUser.UserName</span>
+                </div>
+            }
+
+            <div class="panel-footer">
+                @foreach (var item in @ViewBag.ActiveTrack.TrackGeneres)
+                {
+                    <span class="badge">
+                        @item.Genere.GenereDetail
+                    </span>
+                }
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-lg-4 container-fluid">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="panel panel-warning">
+
+                <div class="panel-heading text-justify text-capitalize">
+                    <b> Actions</b>
+                </div>
+
+                <div class="panel-body text-center">
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-warning btn-like" role="button" data-me="@ViewBag.ActiveTrack.TrackID">
+                            <i class="glyphicon glyphicon-check"></i>
+                            Like
+                        </a>
+                        <a href="@Url.Action("Download", "Songs", new { @id = @ViewBag.ActiveTrack.TrackID })" class="btn btn-default">
+                            <i class="glyphicon glyphicon-download-alt"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="panel panel-warning" style="padding:5px;">
+            <div class="panel-heading text-capitalize text-success">
+                <b>
+                    other songs from same album
+                </b>
+            </div>
+            <div class="panel-body text-capitalize">
+                @foreach (var item in Model)
+                {
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <b>
+                                <a href="@Url.Action("PlaySongInAlbum", "Album", new { @album = item.AlbumID, @track = item.TrackID })">
+                                    <i class="glyphicon glyphicon-play"></i>
+                                    @item.TrackTitle
+                                </a>
+                            </b>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
